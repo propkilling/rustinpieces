@@ -1,0 +1,162 @@
+<head>
+<title>rustClicker</title>
+<script src="jquery.js"></script>
+    
+<style>
+    #topbanner { position: absolute; left: 0px; top: 0px; background-color: #a4a4a4; width: 100%; height: auto; }
+    #left { width: 74%; height: 100%; border: 1px solid red; float: left;}
+    #right { width: 25%; height: 100%; border: 1px solid black; float: right; }
+    #right h2 { transition: all .25s; -o-transition: all .25s; -ms-transition: all .25s; -moz-transition: all .25s; -webkit-transition: all .25s;  }
+    #right h2:hover { transform: scale(1.1,1.1); -o-transform: scale(1.1,1.1); -ms-transform: scale(1.1,1.1); -moz-transform: scale(1.1,1.1); -webkit-transform: scale(1.1,1.1); }
+    .item { width: 100%; height: 60px; background-color: #000; color: #fff; transition: all .25s; -o-transition: all .25s; -ms-transition: all .25s; -moz-transition: all .25s; -webkit-transition: all .25s; }
+    .item:hover { cursor: pointer; transform: translate(-10px,0); -o-transform: translate(-10px,0); -ms-transform: translate(-10px,0); -moz-transform: translate(-10px,0); -webkit-transform: translate(-10px,0); }
+    .item:active {background-color: #555;}
+    #left img {background-color: #969696;transition: all .25s;-o-transition: all .25s;-ms-transition: all .25s;-moz-transition:all .25s;-webkit-transition:all .25s;}
+    #left img:hover {cursor: pointer;transform: scale(1.1,1.1);-o-transform: scale(1.1,1.1);-ms-transform: scale(1.1,1.1);-moz-transform: scale(1.1,1.1);-webkit-transform: scale(1.1,1.1);}
+    #left img:active {background-color: #4a4a4a;}
+    #alpha {transition: all .5s;-o-transition: all .5s;-ms-transition: all .5s;-moz-transition: all .5s;-webkit-transition: all .5s;}
+    #alpha:hover {transform: rotate(360deg);-o-transform: rotate(360deg);-ms-transform: rotate(360deg);-moz-transform: rotate(360deg);-webkit-transform: rotate(360deg);}
+    #table table {font-size: xx-large;}
+    
+    
+    
+    
+</style>
+</head>
+
+<body>
+<div id="topbanner" align='center'>
+        <div>
+            <b><u>rustClicker</u></b><br>
+            <div id="alpha">*alpha*</div>
+        </div>
+</div><br><br><br>
+<div id="table" align='center'>
+    <table>
+        <tr>
+            <td><u>Chicken Breast:</u></td>
+            <td id="food">0</td>
+        </tr>
+    </table>
+</div><br><br><br>
+<div id="left" align='center'><br><br><br>
+    <table>
+        <tr>
+            <td><u>Chicken Breast per Second:</u></td>
+            <td id="fps">0</td>
+        </tr>
+    </table><br><br>
+    <img src="images/pig.png" onclick="getfood()" width="300" height='191'>
+</div>
+<div id="right" align='center' >
+    <h2><u>Upgrades</u></h2>
+    <div class="item" onclick="upgrade(2)">
+        <h3><u>Stone Hatchet</u></h3>
+        <p id="shatchetprice">10 Chicken Breast</p>
+    </div>
+    <div class="item" onclick="upgrade(0)">
+        <h3><u>Hatchet</u></h3>
+        <p id="hatchetprice">50 Chicken Breast</p>
+    </div>
+    <div class="item" onclick="upgrade(1)">
+        <h3><u>Fresh Spawn</u></h3>
+        <p id="fsprice">100 Chicken Breast</p>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="application/javascript">
+    $('img').on('dragstart', function(event) { event.preventDefault(); });
+    var food = 0;
+    var hatchetprice = 50;
+    var fsprice = 100;
+    var shatchetprice = 10;
+    var fps = 0;
+    
+    function upgrade(x){
+        switch(x)
+        {
+            case 0:
+                if(food >= hatchetprice){
+                    food -= hatchetprice;
+                    fps += 1;
+                    hatchetprice += 20;
+                    update();
+                }
+                break;
+            case 1:
+                if(food >= fsprice){
+                    food -= fsprice;
+                    fps += 10;
+                    fsprice += 30;
+                    update();
+                }
+                break;
+            case 2:
+                if(food >= shatchetprice){
+                    food -= shatchetprice;
+                    fps += 0.5;
+                    shatchetprice += 10;
+                    update();
+                }
+            
+        }
+    }
+    
+    
+    
+    
+    
+    function update(){
+        document.getElementById('food').innerHTML = food;
+        document.getElementById('fps').innerHTML = fps;
+        document.getElementById('hatchetprice').innerHTML = hatchetprice + " Chicken Breast";
+        document.getElementById('fsprice').innerHTML = fsprice + " Chicken Breast";
+        document.getElementById('shatchetprice').innerHTML = shatchetprice + " Chicken Breast";
+    }
+                                     
+    function getfood(){
+        food++;
+        update();
+    }
+    function autoclick(){
+        food += fps;
+        update();
+    }
+    
+    
+    setInterval('autoclick()',1000);
+    update();
+    
+    
+</script>
+    
+</body>
